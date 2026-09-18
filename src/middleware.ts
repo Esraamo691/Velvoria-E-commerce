@@ -5,12 +5,32 @@ const protectedPages = ["/cart", "/wishlist", "/allorders"];
 const authPages = ["/login", "/register"];
 
 export default async function middleware(req: NextRequest) {
-  const token = await getToken({
-    req,
-    secret:
-      process.env.NEXTAUTH_SECRET ||
-      "67Y4bDlmHVUHiIhzYE5IbYINm5+xQLSuWLy86lpxN/o=",
-  });
+  const secret =
+    process.env.NEXTAUTH_SECRET ||
+    "67Y4bDlmHVUHiIhzYE5IbYINm5+xQLSuWLy86lpxN/o=";
+
+  const isSecure =
+    req.cookies.has("__Secure-next-auth.session-token") ||
+    req.nextUrl.protocol === "https:";
+
+  const token =
+    (await getToken({
+      req,
+      secret,
+      cookieName: isSecure
+        ? "__Secure-next-auth.session-token"
+        : "next-auth.session-token",
+    })) ||
+    (await getToken({
+      req,
+      secret,
+      cookieName: "next-auth.session-token",
+    })) ||
+    (await getToken({
+      req,
+      secret,
+      cookieName: "__Secure-next-auth.session-token",
+    }));
 
   const { pathname } = req.nextUrl;
 

@@ -2,15 +2,27 @@ import { getUserToken } from "@/Helpers/getUserToken";
 import { NextResponse } from "next/server";
 
 export async function DELETE() {
-  const token = await getUserToken();
+  try {
+    const token = await getUserToken();
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const response = await fetch(`${process.env.URL_API}/cart`, {
-    method: "DELETE",
-    headers: {
-      token: token + "",
-    },
-  });
+    const apiUrl =
+      process.env.URL_API || "https://ecommerce.routemisr.com/api/v1";
+    const response = await fetch(`${apiUrl}/cart`, {
+      method: "DELETE",
+      headers: {
+        token: token,
+      },
+    });
 
-  const data = await response.json();
-  return NextResponse.json(data);
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (err: any) {
+    return NextResponse.json(
+      { error: err.message || "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }

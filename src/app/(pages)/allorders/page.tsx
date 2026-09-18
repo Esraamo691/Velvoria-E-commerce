@@ -13,7 +13,23 @@ export default function AllUserOrders() {
   const [loading, setLoading] = useState(true);
 
   async function getUserOrders() {
-    const userId = localStorage.getItem("userId");
+    let userId = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+    
+    if (!userId) {
+      try {
+        const cartRes = await fetch("/api/get-cart");
+        if (cartRes.ok) {
+          const cartData = await cartRes.json();
+          if (cartData?.data?.cartOwner) {
+            userId = cartData.data.cartOwner;
+            localStorage.setItem("userId", userId as string);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to recover userId:", e);
+      }
+    }
+
     if (!userId) {
       setOrders([]);
       setLoading(false);
