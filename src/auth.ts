@@ -1,6 +1,7 @@
 import { FailedLoginResponse, SuccessLoginResponse } from "@/interfaces";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -31,7 +32,7 @@ export const authOptions: AuthOptions = {
             token: payload.token,
           };
         } else {
-          throw new Error(payload.message);
+          throw new Error(payload.message || "Invalid credentials");
         }
       },
     }),
@@ -46,7 +47,6 @@ export const authOptions: AuthOptions = {
     },
     session: ({ session, token }) => {
       session.user = token.user;
-
       return session;
     },
   },
@@ -54,5 +54,7 @@ export const authOptions: AuthOptions = {
     signIn: "/login",
     error: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    "67Y4bDlmHVUHiIhzYE5IbYINm5+xQLSuWLy86lpxN/o=",
 };

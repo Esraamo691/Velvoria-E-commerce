@@ -9,10 +9,13 @@ export async function POST(req: Request) {
     }
 
     const { cartId, shippingAddress } = await req.json();
-    const baseUrl = process.env.NEXTAUTH_URL;
+    const origin =
+      req.headers.get("origin") ||
+      process.env.NEXTAUTH_URL ||
+      "https://velvoria-e-commerce.vercel.app";
 
     const response = await fetch(
-      `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${baseUrl}`,
+      `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${origin}`,
       {
         method: "POST",
         headers: {

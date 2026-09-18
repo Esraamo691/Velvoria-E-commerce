@@ -2,12 +2,18 @@ import { cookies } from "next/headers";
 import { decode } from "next-auth/jwt";
 
 export async function getUserToken() {
-  const x =
-    (await cookies()).get("next-auth.session-token")?.value ||
-    (await cookies()).get("__Secure-next-auth.session-token")?.value;
+  const cookieStore = await cookies();
+  const tokenCookie =
+    cookieStore.get("next-auth.session-token")?.value ||
+    cookieStore.get("__Secure-next-auth.session-token")?.value;
+
+  if (!tokenCookie) return undefined;
+
   const accessToken = await decode({
-    token: x,
-    secret: process.env.NEXTAUTH_SECRET!,
+    token: tokenCookie,
+    secret:
+      process.env.NEXTAUTH_SECRET ||
+      "67Y4bDlmHVUHiIhzYE5IbYINm5+xQLSuWLy86lpxN/o=",
   });
-  return accessToken?.token;
+  return accessToken?.token as string | undefined;
 }
