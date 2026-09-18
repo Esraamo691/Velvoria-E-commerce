@@ -3,13 +3,18 @@ import ProductsList from "./productList";
 export default async function Products({
   searchParams,
 }: {
-  searchParams?: { category?: string };
+  searchParams?: Promise<{ category?: string; brand?: string }> | { category?: string; brand?: string };
 }) {
-  const categoryId = searchParams?.category;
+  const resolvedParams = searchParams ? await Promise.resolve(searchParams) : {};
+  const categoryId = resolvedParams?.category;
+  const brandId = resolvedParams?.brand;
 
-  const apiUrl = categoryId
-    ? `https://ecommerce.routemisr.com/api/v1/products?category=${categoryId}`
-    : `https://ecommerce.routemisr.com/api/v1/products`;
+  let apiUrl = `https://ecommerce.routemisr.com/api/v1/products`;
+  if (categoryId) {
+    apiUrl = `https://ecommerce.routemisr.com/api/v1/products?category=${categoryId}`;
+  } else if (brandId) {
+    apiUrl = `https://ecommerce.routemisr.com/api/v1/products?brand=${brandId}`;
+  }
 
   const response = await fetch(apiUrl, {
     next: { revalidate: 10 * 60 },

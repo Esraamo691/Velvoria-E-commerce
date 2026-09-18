@@ -58,21 +58,24 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="p-6 lg:w-[40%] w-full text-[#615c48] dark:text-[#E8CFA8] shadow-xl dark:bg-[#615c48] ">
-      <h2 className="text-center text-2xl font-semibold mb-6">Login</h2>
+    <Card className="p-6 sm:p-8 w-full max-w-md mx-auto text-[#615c48] dark:text-[#E8CFA8] shadow-xl bg-[#ece8d7] dark:bg-[#201b16] border border-[#d8cfae]/50 dark:border-white/10 rounded-3xl">
+      <h2 className="text-center text-2xl font-bold font-serif mb-6">
+        Sign In
+      </h2>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-xs font-semibold">Email</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="example@email.com"
                     type="email"
+                    className="bg-white/70 dark:bg-black/30 rounded-xl"
                     {...field}
                   />
                 </FormControl>
@@ -86,9 +89,14 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-xs font-semibold">Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="••••••••" type="password" {...field} />
+                  <Input
+                    placeholder="••••••••"
+                    type="password"
+                    className="bg-white/70 dark:bg-black/30 rounded-xl"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,24 +104,32 @@ export function LoginForm() {
           />
 
           {errorMessage && (
-            <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+            <p className="text-red-500 text-xs text-center font-medium">
+              {errorMessage}
+            </p>
           )}
 
           <Button
             type="submit"
             disabled={isLoading}
-            className="text-[#cfc9ab]  bg-[#433f32] w-full"
+            className="text-[#cfc9ab] bg-[#433f32] hover:bg-[#343026] w-full py-5 rounded-full font-bold text-sm cursor-pointer shadow-md"
           >
-            {isLoading && <Loader2 className="animate-spin mr-2" />}
+            {isLoading && <Loader2 className="animate-spin mr-2 size-4" />}
             Login
           </Button>
 
-          <div className="text-center mt-3">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 text-xs">
             <Link
               href="/forgetPassword"
-              className="text-[#615c48] hover:underline text-sm"
+              className="text-[#615c48] dark:text-[#beb89a] hover:underline"
             >
-              Forget Password?
+              Forgot Password?
+            </Link>
+            <Link
+              href="/register"
+              className="font-bold text-[#433f32] dark:text-[#E8CFA8] hover:underline"
+            >
+              Create an account
             </Link>
           </div>
         </form>

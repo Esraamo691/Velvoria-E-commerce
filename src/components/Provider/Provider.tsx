@@ -41,14 +41,14 @@ export default function Provider({ children }: { children: ReactNode }) {
           <WishlistContextProvider>
             <Navbar mode={mode} changeMode={changeMode} />
             <div
-              className={`min-h-screen transition-colors duration-300 ${
+              className={`min-h-screen w-full overflow-x-hidden transition-colors duration-300 ${
                 mode === "dark"
                   ? "bg-[#0F0B09] text-[#E8CFA8]"
                   : "bg-gradient-to-b from-[#968f6e] via-[#d8cfae] to-[#f9f8f0] text-[#2c2921]"
               }`}
             >
-              <div className="pb-5">
-                <div className="container mx-auto">
+              <div className="pb-5 w-full">
+                <div className="container mx-auto px-3 sm:px-4 md:px-6 max-w-7xl">
                   <Toaster />
                   {children}
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 import { useContext, useState, useEffect } from "react";
-import { FaRegHeart, FaHeart } from "react-icons/fa"; // ← ضيف FaHeart هنا
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { WishlistContext } from "@/components/Context/WishlistContext";
 import { addToWishlistAction } from "@/app/(pages)/products/_action/addToWishlist.action";
 import { useSession } from "next-auth/react";
@@ -51,7 +51,9 @@ export default function AddToWishlist({ productId }: { productId: string }) {
     }
   }
 
-  async function toggleWishlist() {
+  async function toggleWishlist(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
     if (isInWishlist) {
       await removeProductFromWishlist();
     } else {
@@ -62,13 +64,13 @@ export default function AddToWishlist({ productId }: { productId: string }) {
   return (
     <button
       onClick={toggleWishlist}
-      className="cursor-pointer absolute top-3 right-3"
+      className="cursor-pointer absolute top-2 right-2 sm:top-3 sm:right-3 z-10 p-1.5 sm:p-2 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-xs hover:scale-110 transition-transform shadow-xs"
       aria-label="Add to wishlist"
     >
       {isInWishlist ? (
-        <FaHeart className="ms-auto size-6 text-[#a99e7f] transition-colors duration-200" />
+        <FaHeart className="size-4 sm:size-5 text-[#8c734b] dark:text-[#E8CFA8]" />
       ) : (
-        <FaRegHeart className="ms-auto size-6 text-[#a99e7f] transition-colors duration-200" />
+        <FaRegHeart className="size-4 sm:size-5 text-[#8c734b] dark:text-[#E8CFA8]" />
       )}
     </button>
   );

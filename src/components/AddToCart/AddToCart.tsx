@@ -1,6 +1,6 @@
 "use client";
 import { CardFooter } from "../ui/card";
-import { HeartIcon, Loader2, ShoppingCartIcon } from "lucide-react";
+import { Loader2, ShoppingCartIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,41 +11,41 @@ import { useRouter } from "next/navigation";
 
 export default function AddToCart({ productId }: { productId: string }) {
   const [isLoading, setIsLoading] = useState(false);
-  const { getCart, setCartData } = useContext(CartContext);
+  const { setCartData } = useContext(CartContext);
 
   const session = useSession();
-  let navigate = useRouter();
+  const router = useRouter();
 
-  async function addProductToCart() {
-    if (session.status == "authenticated") {
+  async function addProductToCart(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (session.status === "authenticated") {
       setIsLoading(true);
       const data = await addToCartAction(productId);
-      // await getCart();
       setCartData(data);
-      data.status == "success" && toast.success(data.message);
+      if (data.status === "success") {
+        toast.success(data.message);
+      }
       setIsLoading(false);
-      console.log(data);
     } else {
-      navigate.push("/login");
+      router.push("/login");
     }
   }
 
   return (
-    <>
-      <CardFooter className=" gap-1">
-        <Button
-          disabled={isLoading}
-          onClick={addProductToCart}
-          className="grow cursor-pointer  rounded-4xl  text-[17px] py-6 text-[#E8CFA8]  bg-[#635d4a] hover:text-[#E8CFA8] hover:bg-[#433f32]"
-        >
-          {isLoading ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            <ShoppingCartIcon />
-          )}{" "}
-          Add To Cart
-        </Button>
-      </CardFooter>
-    </>
+    <CardFooter className="p-2 sm:p-3 pt-0 sm:pt-0">
+      <Button
+        disabled={isLoading}
+        onClick={addProductToCart}
+        className="w-full cursor-pointer rounded-full text-xs sm:text-sm font-semibold h-9 sm:h-10 py-1.5 px-3 flex items-center justify-center gap-1.5 text-[#E8CFA8] bg-[#635d4a] hover:bg-[#433f32] transition-colors shadow-xs"
+      >
+        {isLoading ? (
+          <Loader2 className="animate-spin size-3.5 sm:size-4" />
+        ) : (
+          <ShoppingCartIcon className="size-3.5 sm:size-4" />
+        )}
+        <span>Add to Cart</span>
+      </Button>
+    </CardFooter>
   );
 }

@@ -3,18 +3,21 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import "animate.css";
+
 export default function Home() {
   return (
-    <>
-      <div className="grid grid-cols-12 min-h-screen bg-gradient-to-b dark:from-[#0F0B09] dark:to-[#0F0B09] dark:via-[#0F0B09] pt-16 from-[#968f6e] via-[#d8cfae] to-[#f9f8f0]">
-        <div className="md:col-span-6 col-span-12  px-5 md:px-15 pt-15">
-          <div className="flex gap-3 md:justify-start justify-center  items-center">
-            <div className="bg-black flex justify-center items-center w-10 h-10 rounded-full">
+    <div className="relative w-full overflow-hidden min-h-[calc(100vh-5rem)] flex items-center pt-20 sm:pt-24 pb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
+        {/* Left Column - Hero Content */}
+        <div className="lg:col-span-6 w-full px-2 sm:px-6 md:px-8 flex flex-col justify-center">
+          {/* Rating Badge */}
+          <div className="flex gap-3 justify-center lg:justify-start items-center">
+            <div className="bg-black text-white flex justify-center items-center size-9 sm:size-10 rounded-full shrink-0 shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="size-5 text-white"
+                className="size-4.5 sm:size-5 text-amber-400"
               >
                 <path
                   fillRule="evenodd"
@@ -23,43 +26,47 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <div className="">
+            <div className="text-xs sm:text-sm">
               <p className="font-bold">5.0 Rated</p>
-              <p className="">
-                Read Our
+              <p className="opacity-90">
+                Read Our{" "}
                 <span className="underline font-bold">Success Stories</span>
               </p>
             </div>
           </div>
-          <div className="font-bold md:mt-15 mt-5 pb-10 border-b border-[#7f7861] font-serif text-center md:text-start md:text-8xl text-6xl">
+
+          {/* Main Title */}
+          <h1 className="font-bold my-4 sm:my-6 pb-4 sm:pb-6 border-b border-[#7f7861]/40 font-serif text-center lg:text-start text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-none text-balance">
             Velvoria
-          </div>
-          <div className="py-5  border-b border-[#7f7861]">
-            <p className="pb-8 text-[#6d6852] font-semibold">
-              Easily Add And Organize Events, With Notifications
-              <br /> To Keep Everyone Engaged
+          </h1>
+
+          {/* Description & Testimonial */}
+          <div className="py-4 border-b border-[#7f7861]/40 space-y-4">
+            <p className="text-sm sm:text-base text-[#6d6852] dark:text-[#c4b998] font-semibold text-center lg:text-start leading-relaxed">
+              Easily Add And Organize Events, With Notifications To Keep
+              Everyone Engaged
             </p>
-            <div className="flex">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-4">
               <Image
                 src="/assests/person.jpg"
-                width={50}
-                height={50}
-                className="rounded-full border-2 object-cover me-3"
-                alt="..."
+                width={48}
+                height={48}
+                className="size-11 sm:size-12 rounded-full border-2 border-[#7f7861] object-cover shrink-0"
+                alt="Client feedback"
               />
-              <div className="flex gap-8">
-                <p className="text-[#3f3c2f] font-semibold">
+              <div className="flex gap-6 items-center text-xs sm:text-sm">
+                <p className="text-[#3f3c2f] dark:text-[#E8CFA8] font-semibold">
                   Loved the performance
                   <br />
                   100% Satisfied
                 </p>
-                <p className="font-bold">
+                <p className="font-bold flex items-center gap-1">
                   /{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="size-6 inline"
+                    className="size-4.5 sm:size-5 text-amber-500 inline"
                   >
                     <path
                       fillRule="evenodd"
@@ -72,37 +79,43 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="gap-3 flex justify-center md:justify-start md:mt-10 mt-5 ">
-            <Link href={"/products"}>
-              <Button className=" cursor-pointer p-6 bg-transparent text-[#433f32] border-2 font-bold border-[#6d6852] rounded-4xl text-[15px]">
+
+          {/* Action CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mt-6 sm:mt-8">
+            <Link href="/products" className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto cursor-pointer px-8 py-6 bg-transparent text-[#433f32] dark:text-[#E8CFA8] border-2 font-bold border-[#6d6852] hover:bg-[#6d6852]/10 rounded-full text-sm sm:text-[15px] transition-all">
                 Shop Now
               </Button>
             </Link>
-            <Link href={"/categories"}>
-              <Button className="cursor-pointer rounded-4xl  text-[15px]  p-6 text-[#beb89a]  bg-[#433f32]">
+            <Link href="/categories" className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto cursor-pointer rounded-full text-sm sm:text-[15px] px-8 py-6 text-[#beb89a] bg-[#433f32] hover:bg-[#343026] transition-all shadow-md">
                 Get Started Now
               </Button>
             </Link>
           </div>
         </div>
-        <div className="col-span-6  hidden lg:flex justify-center items-center">
-          <div className="w-[330px] relative h-[500px]  rounded-2xl">
+
+        {/* Right Column - Hero Visuals */}
+        <div className="lg:col-span-6 w-full flex justify-center items-center mt-6 lg:mt-0 relative px-4">
+          <div className="w-full max-w-[340px] sm:max-w-[370px] relative h-[440px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
             <Image
               src="/assests/welcome7.jpg"
-              width={370}
-              height={800}
-              className="object-cover dark:shadow-xl dark:shadow-[rgb(198,154,94)] w-full h-[500px] rounded-2xl animate__animated animate__slideInDown "
-              alt="..."
+              alt="Velvoria Collection"
+              fill
+              priority
+              className="object-cover rounded-3xl animate__animated animate__fadeIn"
             />
-            <div className="animate__animated animate__slideInLeft absolute flex items-center backdrop-blur-2xl rounded-full border-1 border-[#beb89a] text-black z-10 p-3 px-5 top-3 -left-33 ">
-              <span className="w-7 h-7 rounded-full bg-white flex justify-center items-center me-3">
+
+            {/* Engagement floating badge */}
+            <div className="absolute top-4 left-4 right-4 sm:right-auto flex items-center backdrop-blur-xl bg-white/75 dark:bg-black/60 rounded-full border border-[#beb89a]/60 text-black dark:text-white p-2 sm:p-3 sm:px-4 shadow-lg animate__animated animate__fadeInDown">
+              <span className="size-6 sm:size-7 rounded-full bg-black text-white flex justify-center items-center me-2.5 shrink-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={1.5}
+                  strokeWidth={2}
                   stroke="currentColor"
-                  className="size-5 font-bold"
+                  className="size-3.5 sm:size-4"
                 >
                   <path
                     strokeLinecap="round"
@@ -111,95 +124,63 @@ export default function Home() {
                   />
                 </svg>
               </span>
-              <span className=" bg-clip-text bg-gradient-to-r text-transparent from-[#2c2921] via-[#2c2921] to-[#a99e7f] ">
+              <span className="text-xs sm:text-sm font-semibold truncate">
                 Increase in Engagement
               </span>
             </div>
 
-            <div className="animate__animated animate__slideInLeft absolute flex items-center backdrop-blur-2xl rounded-full border-1 border-[#beb89a] text-black z-10 py-2 px-5 bottom-40 -left-25 ">
-              <span className="w-7 h-7 rounded-full bg-black flex justify-center items-center me-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="size-5 text-white"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span className="">Verno</span>
-            </div>
-            <div className="animate__animated animate__slideInLeft absolute flex items-center backdrop-blur-2xl rounded-full border-1 border-[#beb89a] text-black z-10 py-2 px-5 bottom-25 -left-25 ">
-              <span className="w-7 h-7 rounded-full bg-black flex justify-center items-center me-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="size-5 text-white"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span className="">Wellness</span>
-            </div>
-            <div className="animate__animated animate__slideInLeft absolute flex items-center backdrop-blur-2xl rounded-full border-1 border-[#beb89a] text-black z-10 py-2 px-5 bottom-10 -left-25 ">
-              <span className="w-7 h-7 rounded-full bg-black flex justify-center items-center me-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="size-5 text-white"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span className="">Fashion</span>
+            {/* Pill Badges on Bottom Left */}
+            <div className="absolute bottom-4 left-4 flex flex-col gap-2 z-10">
+              <div className="flex items-center backdrop-blur-xl bg-black/70 text-white rounded-full border border-white/20 py-1.5 px-3.5 shadow-md text-xs sm:text-sm font-medium">
+                <span className="size-5 rounded-full bg-white text-black flex justify-center items-center me-2 text-xs font-bold">
+                  +
+                </span>
+                Verno
+              </div>
+              <div className="flex items-center backdrop-blur-xl bg-black/70 text-white rounded-full border border-white/20 py-1.5 px-3.5 shadow-md text-xs sm:text-sm font-medium">
+                <span className="size-5 rounded-full bg-white text-black flex justify-center items-center me-2 text-xs font-bold">
+                  +
+                </span>
+                Wellness
+              </div>
+              <div className="flex items-center backdrop-blur-xl bg-black/70 text-white rounded-full border border-white/20 py-1.5 px-3.5 shadow-md text-xs sm:text-sm font-medium">
+                <span className="size-5 rounded-full bg-white text-black flex justify-center items-center me-2 text-xs font-bold">
+                  +
+                </span>
+                Fashion
+              </div>
             </div>
 
-            <div className="animate__animated animate__slideInRight absolute bottom-7 backdrop-blur-2xl p-3  rounded-xl -right-17">
-              <div className="w-15 h-15 rounded-xl mb-2">
+            {/* Floating Thumbnails on Bottom Right */}
+            <div className="absolute bottom-4 right-4 backdrop-blur-xl bg-white/40 dark:bg-black/40 p-2 rounded-2xl flex flex-col gap-2 shadow-lg border border-white/20">
+              <div className="size-11 sm:size-13 rounded-xl overflow-hidden relative shadow-xs">
                 <Image
                   src="/assests/welcopy.jpg"
-                  width={200}
-                  height={200}
-                  className=" w-full bg-cover rounded-xl"
-                  alt="..."
+                  alt="Thumb 1"
+                  fill
+                  className="object-cover"
                 />
               </div>
-              <div className="w-15 h-15 rounded-xl mb-2">
+              <div className="size-11 sm:size-13 rounded-xl overflow-hidden relative shadow-xs">
                 <Image
                   src="/assests/welcome11.jpg"
-                  width={200}
-                  height={200}
-                  className=" w-full bg-cover rounded-xl"
-                  alt="..."
+                  alt="Thumb 2"
+                  fill
+                  className="object-cover"
                 />
               </div>
-              <div className="w-15 h-15 rounded-xl">
+              <div className="size-11 sm:size-13 rounded-xl overflow-hidden relative shadow-xs">
                 <Image
                   src="/assests/welcome55.jpg"
-                  width={200}
-                  height={200}
-                  className=" w-full bg-cover rounded-xl"
-                  alt="..."
+                  alt="Thumb 3"
+                  fill
+                  className="object-cover"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
